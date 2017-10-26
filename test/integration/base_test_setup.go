@@ -9,7 +9,7 @@ package integration
 import (
 	"fmt"
 	"os"
-	"path"
+	"path/filepath"
 	"time"
 
 	"github.com/hyperledger/fabric-sdk-go/pkg/config"
@@ -49,7 +49,7 @@ func (setup *BaseSetupImpl) Initialize() error {
 		return fmt.Errorf("Failed getting ephemeral software-based BCCSP [%s]", err)
 	}
 
-	client, err := fcutil.GetClient("admin", "adminpw", "/tmp/enroll_user", configImpl)
+	client, err := fcutil.GetClient("admin", "adminpw", "tmp/enroll_user", configImpl)
 	if err != nil {
 		return fmt.Errorf("Create client failed: %v", err)
 	}
@@ -149,7 +149,7 @@ func (setup *BaseSetupImpl) InstallCC(chainCodeID string, chainCodePath string, 
 // GetDeployPath ..
 func (setup *BaseSetupImpl) GetDeployPath() string {
 	pwd, _ := os.Getwd()
-	return path.Join(pwd, "../fixtures")
+	return filepath.Join(pwd, "../fixtures")
 }
 
 // InstallAndInstantiateExampleCC ..
